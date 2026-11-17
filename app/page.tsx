@@ -3,15 +3,34 @@ import path from "node:path";
 import Portrait from "./components/Portrait";
 import RunSheet from "./components/RunSheet";
 import ThemeToggle from "./components/ThemeToggle";
-import { education, experience, principles, profile, projects, skills, stats } from "./data";
+import { education, experience, principles, profile, projects, siteUrl, skills, stats } from "./data";
 
 // Drop your CV as public/Joshua-Ortiz-CV.pdf and the download button appears on the next build.
 const CV_FILE = "Joshua-Ortiz-CV.pdf";
 const hasCv = existsSync(path.join(process.cwd(), "public", CV_FILE));
 
+// Structured data so search engines understand who this page is about.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  url: siteUrl,
+  image: `${siteUrl}/joshua.jpeg`,
+  jobTitle: "Full-Stack Developer",
+  description: profile.pitch,
+  address: { "@type": "PostalAddress", addressLocality: profile.city, addressCountry: "CO" },
+  knowsLanguage: ["es", "en"],
+  knowsAbout: ["Python", "Playwright", "Process automation", "Next.js", "React", "TypeScript", "Oracle PL/SQL"],
+  sameAs: [profile.links.linkedin, profile.links.upwork, profile.links.github],
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
+      />
       <nav className="nav">
         <div className="wrap nav-inner">
           <a href="#top" className="nav-name">
@@ -48,6 +67,9 @@ export default function Home() {
                 </a>
                 <a className="btn" href={profile.links.upwork} target="_blank" rel="noreferrer">
                   Upwork
+                </a>
+                <a className="btn" href={profile.links.github} target="_blank" rel="noreferrer">
+                  GitHub
                 </a>
               </div>
               <ul className="facts">
@@ -86,7 +108,10 @@ export default function Home() {
               {projects.map((p) => (
                 <article className="project" key={p.slug} id={p.slug}>
                   <div className="project-head">
-                    <h3>{p.title}</h3>
+                    <div>
+                      <h3>{p.title}</h3>
+                      <p className="project-role">{p.role}</p>
+                    </div>
                     <div className="metric">
                       <strong>{p.metric.value}</strong>
                       <span>{p.metric.label}</span>
@@ -108,6 +133,23 @@ export default function Home() {
                       </ul>
                     </div>
                   </div>
+                  {p.notes.length > 0 && (
+                    <details className="notes">
+                      <summary>Engineering notes</summary>
+                      <div className="notes-grid">
+                        {p.notes.map((n) => (
+                          <div key={n.title}>
+                            <h4>{n.title}</h4>
+                            <ul>
+                              {n.items.map((it) => (
+                                <li key={it}>{it}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  )}
                   <ul className="tags" aria-label="Stack">
                     {p.stack.map((t) => (
                       <li key={t}>{t}</li>
@@ -167,7 +209,7 @@ export default function Home() {
                   </ul>
                 </div>
               ))}
-              <h2 className="h2-small">Education</h2>
+              <h2 className="h2-small">Education &amp; certifications</h2>
               <ul className="edu">
                 {education.map((e) => (
                   <li key={e.org}>

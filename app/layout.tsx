@@ -1,18 +1,51 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { profile, siteUrl } from "./data";
 import "./globals.css";
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
+const title = "Joshua Ortiz · Full-Stack Developer, Automation & AI";
+const description =
+  "Full-stack developer in Cali, Colombia. Python and Playwright automation for web portals, document pipelines, and web apps on Next.js and Oracle PL/SQL.";
+
 export const metadata: Metadata = {
-  title: "Joshua Ortiz · Full-Stack Developer, Automation & AI",
-  description:
-    "Full-stack developer in Colombia. Python and Playwright automation for web portals, document pipelines, and web apps on Next.js and Oracle PL/SQL.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  applicationName: "Joshua Ortiz Portfolio",
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  keywords: [
+    "Joshua Ortiz",
+    "full-stack developer",
+    "Python automation",
+    "Playwright",
+    "web scraping",
+    "RPA",
+    "Next.js developer",
+    "React",
+    "TypeScript",
+    "Oracle PL/SQL",
+    "healthcare billing automation",
+    "Colombia",
+    "remote developer",
+  ],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Joshua Ortiz · Full-Stack Developer, Automation & AI",
+    type: "profile",
+    url: "/",
+    siteName: "Joshua Ortiz",
+    locale: "en_US",
+    title,
     description: "Python automation, document pipelines and Next.js + Oracle web apps. Real work, real numbers.",
-    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: "Python automation, document pipelines and Next.js + Oracle web apps. Real work, real numbers.",
   },
 };
 
