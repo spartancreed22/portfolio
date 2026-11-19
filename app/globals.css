@@ -128,7 +128,7 @@ p { margin: 0 0 0.6rem; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
 .stat { padding: 28px 20px; border-left: 1px solid var(--line); }
 .stat:first-child { border-left: 0; padding-left: 0; }
-.stat strong { display: block; font-size: 2rem; letter-spacing: -0.03em; }
+.stat strong { display: block; font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 4px; }
 .stat span { font-size: 0.9rem; color: var(--muted); }
 
 /* Projects */

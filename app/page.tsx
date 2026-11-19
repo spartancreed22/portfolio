@@ -242,7 +242,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="wrap">
-          © {new Date().getFullYear()} {profile.name}. Figures come from my own work; no client or patient data is published.
+          © {new Date().getFullYear()} {profile.name}. Built from real work; no client or patient data is published.
         </div>
       </footer>
     </>

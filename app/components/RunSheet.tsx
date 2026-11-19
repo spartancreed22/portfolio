@@ -5,21 +5,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 type Status = "OK" | "NOT FOUND" | "ERROR";
 type Row = { id: number; code: string; status: Status; detail: string };
 
-const TOTAL = 5674;
-const FOUND = 5206;
+// Demo numbers: this is an illustration, not real production data.
+const TOTAL = 1200;
+const FOUND = 1104;
 const VISIBLE_ROWS = 5;
 
 const DETAILS: Record<Status, string[]> = {
-  OK: ["date read from PDF preview", "ID matches PDF", "found on page 2"],
-  "NOT FOUND": ["no authorization in tray", "not listed by the portal"],
+  OK: ["value read from PDF preview", "ID matches PDF", "found on page 2"],
+  "NOT FOUND": ["no document in the portal", "not listed by the portal"],
   ERROR: ["portal timeout · retried"],
 };
 
 // What the log looks like once the run ends: mostly green, but the misses stay visible with their reason.
 const FINAL_ROWS: Row[] = [
   { id: -1, code: "B71C", status: "OK", detail: "ID matches PDF" },
-  { id: -2, code: "5E0A", status: "NOT FOUND", detail: "no authorization in tray" },
-  { id: -3, code: "C3D9", status: "OK", detail: "date read from PDF preview" },
+  { id: -2, code: "5E0A", status: "NOT FOUND", detail: "no document in the portal" },
+  { id: -3, code: "C3D9", status: "OK", detail: "value read from PDF preview" },
   { id: -4, code: "9F42", status: "ERROR", detail: "portal timeout · retried" },
   { id: -5, code: "2AE6", status: "OK", detail: "found on page 2" },
 ];
@@ -87,7 +88,7 @@ export default function RunSheet() {
     <figure className="sheet" aria-label="Illustration of an automation run log">
       <div className="sheet-bar">
         <span className={`sheet-dot${finished ? " is-done" : ""}`} />
-        <span>patient_lookup · run log</span>
+        <span>records_lookup · demo run</span>
         {finished ? (
           <button type="button" className="sheet-replay" onClick={run}>
             ↻ replay
@@ -106,8 +107,8 @@ export default function RunSheet() {
         </div>
         <p className="sheet-sub">
           {finished
-            ? "Found in about 30 minutes. Every miss has a reason in the log."
-            : "Looking up patients on an insurer's portal…"}
+            ? "Done. Every miss has a reason in the log."
+            : "Looking up records on a third-party portal…"}
         </p>
       </div>
       <div className="sheet-rows" role="table" aria-label="Last processed rows">
@@ -123,7 +124,7 @@ export default function RunSheet() {
           </div>
         ))}
       </div>
-      <figcaption className="sheet-note">Illustration. Codes are made up; no patient data is shown.</figcaption>
+      <figcaption className="sheet-note">Illustration with made-up numbers and codes. No real data is shown.</figcaption>
     </figure>
   );
 }

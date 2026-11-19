@@ -33,7 +33,7 @@ export default function OpengraphImage() {
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
-          <div style={{ display: "flex", fontSize: 64, fontWeight: 700, color: "#ff4f00" }}>{highlight.value}</div>
+          <div style={{ display: "flex", fontSize: 44, fontWeight: 700, color: "#ff4f00" }}>{highlight.value}</div>
           <div style={{ display: "flex", fontSize: 30, color: "#a8afb7" }}>{highlight.label}</div>
           <div style={{ display: "flex", marginLeft: "auto", fontSize: 28, color: "#a8afb7" }}>{profile.location}</div>
         </div>
